@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/Luis/AndroidStudioProjects/CID/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="/Users/Luis/AndroidStudioProjects/CID/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.1_a723c60a69aef173383022d72b9c91a13b500add.jar" />
+    </item>
+    <item
+        jar="/Users/Luis/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="/Users/Luis/AndroidStudioProjects/CID/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.1_ce34f002bb8f6453a0c988c86049860a4b9722ad.jar" />
+    </item>
+    <item
+        jar="/Users/Luis/AndroidStudioProjects/CID/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="/Users/Luis/AndroidStudioProjects/CID/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.1.1_3c8707f2d2b280df4801495d383250d3110b371a.jar" />
+    </item>
+    <item
+        jar="/Users/Luis/AndroidStudioProjects/CID/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
+        <dex dex="/Users/Luis/AndroidStudioProjects/CID/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-23.1.1_a0c4cdc7bd6dac151fcd032195aca5e1471c67c2.jar" />
+    </item>
+    <item
+        jar="/Users/Luis/AndroidStudioProjects/CID/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="/Users/Luis/AndroidStudioProjects/CID/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.1.1_901acb879c52e013ed8d0f21bb9901dcc114b471.jar" />
+    </item>
+    <item
+        jar="/Users/Luis/AndroidStudioProjects/CID/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
+        <dex dex="/Users/Luis/AndroidStudioProjects/CID/app/build/intermediates/pre-dexed/debug/com.android.support-design-23.1.1_1ac310d531ebb0b16349ad9c4e4c343a5a6be456.jar" />
+    </item>
+
+</items>
