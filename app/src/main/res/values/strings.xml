@@ -1,8 +1,14 @@
 <resources>
+    <!-- Default app settings -->
     <string name="app_name">CID</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <!-- Drawer titles -->
+    <string name="running_circuits">Circuitos de running</string>
+    <string name="sport_facilities">Instalaciones deportivas</string>
+
 </resources>
