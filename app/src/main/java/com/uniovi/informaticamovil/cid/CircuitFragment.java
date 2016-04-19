@@ -3,7 +3,6 @@ package com.uniovi.informaticamovil.cid;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +27,8 @@ import java.util.ArrayList;
  */
 public class CircuitFragment extends Fragment {
     private static final String URL = "http://datos.gijon.es/doc/informacion/circuitos-footing.json";
-    ListView mListView;
-    View view;
+    private ListView mListView;
+    private View view;
 
     public static CircuitFragment newInstance(){
         CircuitFragment fragment = new CircuitFragment();
@@ -119,7 +118,7 @@ public class CircuitFragment extends Fragment {
             return baos.toString("UTF-8");
         }
 
-        // Muestra el resultado en un text_view
+        // Muestra el resultado en un list_view
         @Override
         protected void onPostExecute(ArrayList<Circuit> result) {
             populateList(result);
@@ -175,8 +174,9 @@ public class CircuitFragment extends Fragment {
 
             if(!image.isEmpty())
                 circuit = new Circuit(name, address, description, location, image);
-            else
+            else {
                 circuit = new Circuit(name, address, description, location);
+            }
 
             return circuit;
         }
@@ -184,7 +184,6 @@ public class CircuitFragment extends Fragment {
 
     protected void populateList(ArrayList<Circuit> circuitList){
         if(circuitList != null){
-            Log.i("depuracion", "entra en if");
             CircuitsAdapter adapter = new CircuitsAdapter(getActivity(), circuitList);
             mListView.setAdapter(adapter);
         }

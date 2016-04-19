@@ -17,6 +17,7 @@ public class Circuit {
         mDirection = direccion;
         mDescription = description;
         mLocation = location;
+        mImage = "";
     }
 
     public Circuit(String name, String direccion, String description, String location, String image){
