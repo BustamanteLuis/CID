@@ -1,4 +1,4 @@
-package com.uniovi.informaticamovil.cig;
+package com.uniovi.informaticamovil.cid;
 
 import org.junit.Test;
 

@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.StrictMode;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -24,48 +26,66 @@ import java.util.ArrayList;
 /**
  * Created by Luis on 16/4/16.
  */
-public class CircuitsAdapter extends ArrayAdapter<Circuit> {
-    private ImageView mCircuitView;
+public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.CircuitViewHolder>{
+    ArrayList<Circuit> mCircuits;
 
-    public CircuitsAdapter(Context context, ArrayList<Circuit> circuits) {
-        super(context, R.layout.circuit_item, circuits);
+    public CircuitsAdapter(ArrayList<Circuit> circuits) {
+        mCircuits = circuits;
+    }
 
+    public static class CircuitViewHolder extends RecyclerView.ViewHolder {
+        TextView circuitName;
+        TextView circuitDirection;
+        TextView circuitDescription;
+        ImageView circuitView;
+        View mItemView;
+
+        CircuitViewHolder(View itemView) {
+            super(itemView);
+            mItemView = itemView;
+            circuitName = (TextView) itemView.findViewById(R.id.circuitName);
+            circuitDirection = (TextView) itemView.findViewById(R.id.circuitDirection);
+            circuitDescription = (TextView) itemView.findViewById(R.id.circuitDescription);
+            circuitView = (ImageView) itemView.findViewById(R.id.circuitView);
+        }
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
-        Circuit circuit = getItem(position);
-        Log.e("veces", "position:" + position);
-        // Check if an existing view is being reused, otherwise inflate the view
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext())
-                    .inflate(R.layout.circuit_item, parent, false);
-        }
-        // Lookup view for data population
-        TextView circuitName = (TextView) convertView.findViewById(R.id.circuitName);
-        TextView circuitDirection = (TextView) convertView.findViewById(R.id.circuitDirection);
-        TextView circuitDescription = (TextView) convertView.findViewById(R.id.circuitDescription);
-        mCircuitView = (ImageView) convertView.findViewById(R.id.circuitView);
-        Log.e("medidas", "" + mCircuitView.getWidth());
-        // Populate the data into the template view using the data object
-        circuitName.setText(circuit.getName());
-        circuitDirection.setText(circuit.getDirection());
-        circuitDescription.setText(circuit.getDescription());
-        Log.e("veces", "fuera");
-        if(!circuit.getImage().isEmpty()) {
-            Log.e("veces", "entra para poner la imagen");
+    public int getItemCount() {
+        return mCircuits.size();
+    }
+
+    @Override
+    public CircuitViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View convertView = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.circuit_item, viewGroup, false);
+        CircuitViewHolder cvh = new CircuitViewHolder(convertView);
+        return cvh;
+    }
+
+    @Override
+    public void onBindViewHolder(CircuitViewHolder circuitViewHolder, int i) {
+        circuitViewHolder.circuitName.setText(mCircuits.get(i).getName());
+        circuitViewHolder.circuitDirection.setText(mCircuits.get(i).getDirection());
+        circuitViewHolder.circuitDescription.setText(mCircuits.get(i).getDescription());
+        if(!mCircuits.get(i).getImage().isEmpty()) {
             try {
-                mCircuitView.setImageBitmap(getBitmapFromURL(circuit.getImage()));
+                circuitViewHolder.circuitView.setImageBitmap(
+                        getBitmapFromURL(mCircuits.get(i).getImage(), circuitViewHolder.mItemView));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        // Return the completed view to render on screen
-        return convertView;
+
     }
 
-    public Bitmap getBitmapFromURL(String myUrl) throws IOException {
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+    }
+
+
+    public Bitmap getBitmapFromURL(String myUrl, View itemView) throws IOException {
         InputStream is = null;
         // Evita que android bloquee las url de las imagenes
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -81,11 +101,11 @@ public class CircuitsAdapter extends ArrayAdapter<Circuit> {
             is = conn.getInputStream();
 
             // Get width of screen at runtime
-            int screenWidth = DeviceDimensionsHelper.getDisplayWidth(getContext());
+            int screenWidth = DeviceDimensionsHelper.getDisplayWidth(itemView.getContext());
 
             Bitmap imagen = BitmapFactory.decodeStream(is);
 
-            float factor = screenWidth / (float) imagen.getWidth();
+            // float factor = screenWidth / (float) imagen.getWidth();
 
             imagen = Bitmap.createScaledBitmap(imagen, screenWidth, 350, true);
 
@@ -98,6 +118,5 @@ public class CircuitsAdapter extends ArrayAdapter<Circuit> {
                 is.close();
             }
         }
-
     }
 }

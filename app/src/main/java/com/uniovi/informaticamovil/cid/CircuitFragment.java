@@ -3,6 +3,8 @@ package com.uniovi.informaticamovil.cid;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +29,7 @@ import java.util.ArrayList;
  */
 public class CircuitFragment extends Fragment {
     private static final String URL = "http://datos.gijon.es/doc/informacion/circuitos-footing.json";
-    private ListView mListView;
+    private RecyclerView mRecyclerView;
     private View view;
 
     public static CircuitFragment newInstance(){
@@ -42,7 +44,11 @@ public class CircuitFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_circuits, container, false);
 
-        mListView = (ListView)view.findViewById(R.id.circuitsListView);
+        mRecyclerView = (RecyclerView)view.findViewById(R.id.circuitRecyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        // Makes the recycler view like a list
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(llm);
 
 
         DownloadJSONTask djt = new DownloadJSONTask();
@@ -184,8 +190,8 @@ public class CircuitFragment extends Fragment {
 
     protected void populateList(ArrayList<Circuit> circuitList){
         if(circuitList != null){
-            CircuitsAdapter adapter = new CircuitsAdapter(getActivity(), circuitList);
-            mListView.setAdapter(adapter);
+            CircuitsAdapter adapter = new CircuitsAdapter(circuitList);
+            mRecyclerView.setAdapter(adapter);
         }
     }
 }
