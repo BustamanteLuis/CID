@@ -1,10 +1,14 @@
 package com.uniovi.informaticamovil.cid;
 
+import android.content.ContentValues;
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +35,8 @@ public class CircuitFragment extends Fragment {
     private static final String URL = "http://datos.gijon.es/doc/informacion/circuitos-footing.json";
     private RecyclerView mRecyclerView;
     private View view;
+    private CIDbHelper mCIDb;
+    private SharedPreferences mSettings;
 
     public static CircuitFragment newInstance(){
         CircuitFragment fragment = new CircuitFragment();
@@ -44,15 +50,30 @@ public class CircuitFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_circuits, container, false);
 
+        mSettings = getActivity().getSharedPreferences("Settings", 0);
+
         mRecyclerView = (RecyclerView)view.findViewById(R.id.circuitRecyclerView);
         mRecyclerView.setHasFixedSize(true);
         // Makes the recycler view like a list
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(llm);
 
+        //BD initialization
+        mCIDb= new CIDbHelper(getContext());
 
-        DownloadJSONTask djt = new DownloadJSONTask();
-        djt.execute(URL);
+        // if application is installed gets de data base data
+        if(mSettings.getBoolean("isInstalled", false) ) {
+            Log.e("installed", "" + "entra if");
+            populateList(mCIDb.leerCircuitos());
+        }
+        // if not are download, make it
+        else {
+            Log.e("installed", "" + "entra else");
+            // Descarga los datos, los almacena en la BD y los adapta
+            DownloadJSONTask djt = new DownloadJSONTask();
+            djt.execute(URL);
+        }
+
         return view;
     }
 
@@ -127,7 +148,9 @@ public class CircuitFragment extends Fragment {
         // Muestra el resultado en un list_view
         @Override
         protected void onPostExecute(ArrayList<Circuit> result) {
+            mCIDb.insertarCircuitos(result);
             populateList(result);
+            mSettings.edit().putBoolean("isInstalled", true).commit();
         }
 
         private ArrayList<Circuit> parseJsonBusFile(String jsonCircuitsInformation)
@@ -188,10 +211,11 @@ public class CircuitFragment extends Fragment {
         }
     }
 
-    protected void populateList(ArrayList<Circuit> circuitList){
-        if(circuitList != null){
+    protected void populateList(ArrayList<Circuit> circuitList) {
+        if (circuitList != null) {
             CircuitsAdapter adapter = new CircuitsAdapter(circuitList);
             mRecyclerView.setAdapter(adapter);
         }
     }
+
 }
