@@ -10,5 +10,6 @@
     <!-- Drawer titles -->
     <string name="running_circuits">Circuitos de running</string>
     <string name="sport_facilities">Instalaciones deportivas</string>
+    <string name="interest_location">Ubicaciones</string>
 
 </resources>

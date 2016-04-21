@@ -49,29 +49,8 @@ public class MainActivity extends AppCompatActivity
         if (savedInstanceState == null)
             updateContentFragment();
 
-        /* Para saber si tenemos conexion a internet
-        Toast toastOnline;
-        CharSequence mens = "";
-        int duracion = Toast.LENGTH_SHORT;
-        toastOnline = Toast.makeText(getApplicationContext(), mens, duracion);
-        toastOnline.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
-
-        if (isOnline())
-            toastOnline.setText("Yes, I´m Online");
-        else
-            toastOnline.setText("No, I´m not Online");
-
-        toastOnline.show();
-        */
-
     }
 
-    boolean isOnline(){
-        ConnectivityManager connMgr = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        return (networkInfo != null && networkInfo.isConnected());
-    }
 
     @Override
     public void onBackPressed() {
@@ -130,8 +109,9 @@ public class MainActivity extends AppCompatActivity
 
         } else if (mCurrentIndex == R.id.nav_facilities) {
             fragment = FacilitieFragment.newInstance();
+        } else if(mCurrentIndex == R.id.nav_locations){
+            fragment = MapFragment.newInstance();
         }
-
         else{
             // Por defecto se carga el fragmento de los circuitos
             fragment = CircuitFragment.newInstance();

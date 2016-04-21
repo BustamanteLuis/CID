@@ -63,12 +63,11 @@ public class CircuitFragment extends Fragment {
 
         // if application is installed gets de data base data
         if(mSettings.getBoolean("isInstalled", false) ) {
-            Log.e("installed", "" + "entra if");
+            Log.e("instalada", "esta instalada");
             populateList(mCIDb.leerCircuitos());
         }
         // if not are download, make it
         else {
-            Log.e("installed", "" + "entra else");
             // Descarga los datos, los almacena en la BD y los adapta
             DownloadJSONTask djt = new DownloadJSONTask();
             djt.execute(URL);

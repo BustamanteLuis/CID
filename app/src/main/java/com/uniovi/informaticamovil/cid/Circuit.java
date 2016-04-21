@@ -1,5 +1,10 @@
 package com.uniovi.informaticamovil.cid;
 
+import android.support.v4.util.Pair;
+
+import java.util.ArrayList;
+import java.util.Set;
+
 /**
  * Created by Luis on 14/4/16.
  */
@@ -66,5 +71,14 @@ public class Circuit {
 
     public void setImage(String mImage) {
         this.mImage = mImage;
+    }
+
+    public Pair<Double,Double> getParsedLocation(){
+        String[] aux = mLocation.split(" ");
+
+        Pair<Double,Double> LatLong = new Pair<>(Double.parseDouble(aux[0]), Double.parseDouble(aux[1]));
+
+        return LatLong;
+
     }
 }
