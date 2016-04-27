@@ -2,7 +2,6 @@ package com.uniovi.informaticamovil.cid;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +58,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
 
         mapearCircuitos();
+        mapearInstalaciones();
     }
 
     public void mapearCircuitos(){
@@ -71,6 +71,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             mMap.addMarker(new MarkerOptions().position(loc).title(c.getName()));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 11));
 
+        }
+    }
+
+    public void mapearInstalaciones(){
+        CIDbHelper CIDb = new CIDbHelper(getContext());
+        ArrayList<Facilitie> facilities = CIDb.leerFacilities();
+
+        // Add a markeres and move the camera
+        for(Facilitie f : facilities){
+            if(!f.getLocation().isEmpty()) {
+                LatLng loc = new LatLng(f.getParsedLocation().first, f.getParsedLocation().second);
+                mMap.addMarker(new MarkerOptions().position(loc).title(f.getName()));
+            }
         }
     }
 

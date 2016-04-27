@@ -2,9 +2,6 @@ package com.uniovi.informaticamovil.cid;
 
 import android.support.v4.util.Pair;
 
-import java.util.ArrayList;
-import java.util.Set;
-
 /**
  * Created by Luis on 14/4/16.
  */

@@ -33,6 +33,7 @@ import java.util.ArrayList;
  */
 public class CircuitFragment extends Fragment {
     private static final String URL = "http://datos.gijon.es/doc/informacion/circuitos-footing.json";
+
     private RecyclerView mRecyclerView;
     private View view;
     private CIDbHelper mCIDb;
@@ -50,7 +51,7 @@ public class CircuitFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_circuits, container, false);
 
-        mSettings = getActivity().getSharedPreferences("Settings", 0);
+        mSettings = getActivity().getSharedPreferences("SettingsCircuit", 0);
 
         mRecyclerView = (RecyclerView)view.findViewById(R.id.circuitRecyclerView);
         mRecyclerView.setHasFixedSize(true);
@@ -63,7 +64,6 @@ public class CircuitFragment extends Fragment {
 
         // if application is installed gets de data base data
         if(mSettings.getBoolean("isInstalled", false) ) {
-            Log.e("instalada", "esta instalada");
             populateList(mCIDb.leerCircuitos());
         }
         // if not are download, make it
@@ -117,7 +117,7 @@ public class CircuitFragment extends Fragment {
             try {
                 is = openHttpInputStream(myUrl);
 
-                return parseJsonBusFile(streamToString(is));
+                return parseJsonCircuitsFile(streamToString(is));
             }catch(JSONException e){
                 return null;
             } finally{
@@ -152,7 +152,7 @@ public class CircuitFragment extends Fragment {
             mSettings.edit().putBoolean("isInstalled", true).commit();
         }
 
-        private ArrayList<Circuit> parseJsonBusFile(String jsonCircuitsInformation)
+        private ArrayList<Circuit> parseJsonCircuitsFile(String jsonCircuitsInformation)
                 throws JSONException {
             ArrayList<Circuit> result = new ArrayList<Circuit>();
 
@@ -202,9 +202,9 @@ public class CircuitFragment extends Fragment {
 
             if(!image.isEmpty())
                 circuit = new Circuit(name, address, description, location, image);
-            else {
+            else
                 circuit = new Circuit(name, address, description, location);
-            }
+
 
             return circuit;
         }

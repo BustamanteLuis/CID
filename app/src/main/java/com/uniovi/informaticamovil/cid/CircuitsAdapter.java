@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.StrictMode;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -65,9 +66,9 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.Circui
 
     @Override
     public void onBindViewHolder(CircuitViewHolder circuitViewHolder, int i) {
-        circuitViewHolder.circuitName.setText(mCircuits.get(i).getName());
-        circuitViewHolder.circuitDirection.setText(mCircuits.get(i).getDirection());
-        circuitViewHolder.circuitDescription.setText(mCircuits.get(i).getDescription());
+        circuitViewHolder.circuitName.setText(Html.fromHtml(mCircuits.get(i).getName()));
+        circuitViewHolder.circuitDirection.setText(Html.fromHtml(mCircuits.get(i).getDirection()));
+        circuitViewHolder.circuitDescription.setText(Html.fromHtml(mCircuits.get(i).getDescription()));
         if(!mCircuits.get(i).getImage().isEmpty()) {
             try {
                 circuitViewHolder.circuitView.setImageBitmap(
@@ -76,7 +77,6 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.Circui
                 e.printStackTrace();
             }
         }
-
     }
 
     @Override
