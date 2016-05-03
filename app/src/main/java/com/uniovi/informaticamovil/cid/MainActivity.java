@@ -1,14 +1,21 @@
 package com.uniovi.informaticamovil.cid;
 
+import android.annotation.TargetApi;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -22,11 +29,14 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
     private CharSequence mTitle;
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     private int mCurrentIndex;
+    private CircuitFragment mCf;
+    private FacilitieFragment mFf;
+    private Fragment fragment;
 
 
     @Override
@@ -62,12 +72,42 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(this);
+
         return true;
     }
+
+    @Override
+    public boolean onQueryTextChange(String query) {
+        // Here is where we are going to implement our filter logic
+        Log.e("queryTextchange", "entra en on query");
+        if(fragment instanceof CircuitFragment)
+            mCf.updateContent(query);
+        else if(fragment instanceof FacilitieFragment)
+            mFf.updateContent(query);
+
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -102,19 +142,21 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void updateContentFragment(){
-        Fragment fragment;
 
         if (mCurrentIndex == R.id.nav_running) {
-            fragment = CircuitFragment.newInstance();
+            mCf = CircuitFragment.newInstance();
+            fragment = mCf;
 
         } else if (mCurrentIndex == R.id.nav_facilities) {
-            fragment = FacilitieFragment.newInstance();
+            mFf = FacilitieFragment.newInstance();
+            fragment = mFf;
         } else if(mCurrentIndex == R.id.nav_locations){
             fragment = MapFragment.newInstance();
         }
         else{
             // Por defecto se carga el fragmento de los circuitos
-            fragment = CircuitFragment.newInstance();
+            mCf = CircuitFragment.newInstance();
+            fragment = mCf;
         }
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager()
@@ -124,8 +166,5 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.commit();
 
     }
-
-
-
 
 }

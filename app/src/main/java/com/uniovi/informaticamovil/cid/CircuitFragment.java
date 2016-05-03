@@ -38,6 +38,7 @@ public class CircuitFragment extends Fragment {
     private View view;
     private CIDbHelper mCIDb;
     private SharedPreferences mSettings;
+    private CircuitsAdapter adapter;
 
     public static CircuitFragment newInstance(){
         CircuitFragment fragment = new CircuitFragment();
@@ -212,9 +213,13 @@ public class CircuitFragment extends Fragment {
 
     protected void populateList(ArrayList<Circuit> circuitList) {
         if (circuitList != null) {
-            CircuitsAdapter adapter = new CircuitsAdapter(circuitList);
+            adapter = new CircuitsAdapter(circuitList);
             mRecyclerView.setAdapter(adapter);
         }
+    }
+
+    public void updateContent(String query){
+        adapter.getFilter().filter(query);
     }
 
 }

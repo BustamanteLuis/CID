@@ -12,4 +12,11 @@
     <string name="sport_facilities">Instalaciones deportivas</string>
     <string name="interest_location">Ubicaciones</string>
 
+    <!-- Facilities description -->
+    <string name="facilitie_direction">Dirección: </string>
+    <string name="facilitie_schedule">Horario: </string>
+
+    <!-- Search view -->
+    <string name="search_hint">Buscar...</string>
+
 </resources>

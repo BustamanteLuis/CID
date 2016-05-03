@@ -10,6 +10,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -68,7 +69,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         // Add a markeres and move the camera
         for(Circuit c : circuits){
             LatLng loc = new LatLng(c.getParsedLocation().first, c.getParsedLocation().second);
-            mMap.addMarker(new MarkerOptions().position(loc).title(c.getName()));
+            mMap.addMarker(new MarkerOptions()
+                    .position(loc)
+                    .title(c.getName())
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 11));
 
         }
@@ -82,7 +86,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         for(Facilitie f : facilities){
             if(!f.getLocation().isEmpty()) {
                 LatLng loc = new LatLng(f.getParsedLocation().first, f.getParsedLocation().second);
-                mMap.addMarker(new MarkerOptions().position(loc).title(f.getName()));
+                mMap.addMarker(new MarkerOptions()
+                        .position(loc)
+                        .title(f.getName())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
             }
         }
     }

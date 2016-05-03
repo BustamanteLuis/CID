@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,8 +29,9 @@ import java.util.ArrayList;
 /**
  * Created by Luis on 16/4/16.
  */
-public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.CircuitViewHolder>{
+public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.CircuitViewHolder> implements Filterable{
     ArrayList<Circuit> mCircuits;
+    ArrayList<Circuit> Original;
 
     public CircuitsAdapter(ArrayList<Circuit> circuits) {
         mCircuits = circuits;
@@ -118,5 +121,46 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.Circui
                 is.close();
             }
         }
+    }
+
+    @Override
+    public Filter getFilter() {
+        Filter filter = new Filter() {
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                mCircuits=(ArrayList<Circuit>)results.values;
+                notifyDataSetChanged();
+                Log.e("Filter", "publish");
+            }
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                FilterResults results = new FilterResults();
+                ArrayList<Circuit> filteredList= new ArrayList<Circuit>();
+
+                if(Original == null)
+                    Original = mCircuits;
+
+                if (constraint == null || constraint.length() == 0) {
+                    // No filter implemented we return all the list
+                    results.values = mCircuits;
+                    results.count = mCircuits.size();
+                }
+                else {
+                    for (int i = 0; i < Original.size(); i++) {
+                        Circuit data = Original.get(i);
+                        if (data.getName().toLowerCase().contains(constraint.toString()))  {
+                            filteredList.add(data);
+                        }
+                    }
+                    results.values = filteredList;
+                    results.count = filteredList.size();
+                }
+                Log.e("Filter", "perform");
+                return results;
+            }
+        };
+        return filter;
     }
 }

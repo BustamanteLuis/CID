@@ -35,6 +35,7 @@ public class FacilitieFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private CIDbHelper mCIDb;
     private SharedPreferences mSettings;
+    private FacilitiesAdapter adapter;
 
     public static FacilitieFragment newInstance(){
         FacilitieFragment fragment = new FacilitieFragment();
@@ -211,9 +212,13 @@ public class FacilitieFragment extends Fragment {
 
     protected void populateList(ArrayList<Facilitie> facilitieList) {
         if (facilitieList != null) {
-            FacilitiesAdapter adapter = new FacilitiesAdapter(facilitieList);
+            adapter = new FacilitiesAdapter(facilitieList);
             mRecyclerView.setAdapter(adapter);
         }
+    }
+
+    public void updateContent(String query){
+        adapter.getFilter().filter(query);
     }
 
 }
