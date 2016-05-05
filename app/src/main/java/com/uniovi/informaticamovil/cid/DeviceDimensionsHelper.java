@@ -2,8 +2,12 @@ package com.uniovi.informaticamovil.cid;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * Created by Luis on 19/4/16.
@@ -35,5 +39,19 @@ public class DeviceDimensionsHelper {
         DisplayMetrics metrics = r.getDisplayMetrics();
         float dp = px / (metrics.densityDpi / 160f);
         return dp;
+    }
+
+    /** Utility methods to conver bitmap to byte array  **/
+
+    // Convert from bitmap to byte array
+    public static byte[] getBytes(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        return stream.toByteArray();
+    }
+
+    // Convert from byte array to bitmap
+    public static Bitmap getImage(byte[] image) {
+        return BitmapFactory.decodeByteArray(image, 0, image.length);
     }
 }

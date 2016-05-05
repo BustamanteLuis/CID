@@ -2,6 +2,7 @@ package com.uniovi.informaticamovil.cid;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.uniovi.informaticamovil.cid.Circuits.Circuit;
+import com.uniovi.informaticamovil.cid.DB.CIDbHelper;
+import com.uniovi.informaticamovil.cid.Facilities.Facilitie;
 
 import java.util.ArrayList;
 
@@ -66,15 +70,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         CIDbHelper CIDb = new CIDbHelper(getContext());
         ArrayList<Circuit> circuits = CIDb.leerCircuitos();
 
-        // Add a markeres and move the camera
-        for(Circuit c : circuits){
-            LatLng loc = new LatLng(c.getParsedLocation().first, c.getParsedLocation().second);
-            mMap.addMarker(new MarkerOptions()
-                    .position(loc)
-                    .title(c.getName())
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 11));
+        if(circuits != null) {
+            // Add a markeres and move the camera
+            for (Circuit c : circuits) {
+                LatLng loc = new LatLng(c.getParsedLocation().first, c.getParsedLocation().second);
+                mMap.addMarker(new MarkerOptions()
+                        .position(loc)
+                        .title(c.getName())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 11));
 
+            }
         }
     }
 
@@ -82,16 +88,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         CIDbHelper CIDb = new CIDbHelper(getContext());
         ArrayList<Facilitie> facilities = CIDb.leerFacilities();
 
-        // Add a markeres and move the camera
-        for(Facilitie f : facilities){
-            if(!f.getLocation().isEmpty()) {
-                LatLng loc = new LatLng(f.getParsedLocation().first, f.getParsedLocation().second);
-                mMap.addMarker(new MarkerOptions()
-                        .position(loc)
-                        .title(f.getName())
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+        if(facilities != null) {
+            // Add a markeres and move the camera
+            for (Facilitie f : facilities) {
+                if (!f.getLocation().isEmpty()) {
+                    LatLng loc = new LatLng(f.getParsedLocation().first, f.getParsedLocation().second);
+                    mMap.addMarker(new MarkerOptions()
+                            .position(loc)
+                            .title(f.getName())
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                }
             }
         }
+
     }
 
     @Override
