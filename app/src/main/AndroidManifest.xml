@@ -42,6 +42,10 @@
                 android:value="com.uniovi.informaticamovil.cid.MainActivity" />
         </activity>
 
+        <activity
+            android:name=".MyPreferencesActivity"
+            android:label="Preferences">
+        </activity>
 
     </application>
 

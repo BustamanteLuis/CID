@@ -109,4 +109,6 @@ public class FacilitieFragment extends Fragment implements LoaderManager.LoaderC
         adapter.getFilter().filter(query);
     }
 
+
+
 }

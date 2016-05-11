@@ -21,6 +21,7 @@ import java.util.ArrayList;
  */
 public class CircuitFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<Circuit>>{
     private static final String URL = "http://datos.gijon.es/doc/informacion/circuitos-footing.json";
+    private static final String PREFERENCES = "SettingsCircuit";
     private static final int CIRCUIT_LOADER = 1;
 
     private RecyclerView mRecyclerView;
@@ -41,7 +42,7 @@ public class CircuitFragment extends Fragment implements LoaderManager.LoaderCal
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_circuits, container, false);
 
-        mSettings = getActivity().getSharedPreferences("SettingsCircuit", 0);
+        mSettings = getActivity().getSharedPreferences(PREFERENCES, 0);
 
         mRecyclerView = (RecyclerView)view.findViewById(R.id.circuitRecyclerView);
         mRecyclerView.setHasFixedSize(true);

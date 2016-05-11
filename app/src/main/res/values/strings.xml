@@ -19,4 +19,14 @@
     <!-- Search view -->
     <string name="search_hint">Buscar...</string>
 
+    <!-- Settings options -->
+    <string name="map_category">Mapa</string>
+    <string name="map_option">Ubicación más próxima</string>
+    <string name="map_option_description">Si esta opción está seleccionada solo se mostrará
+    en Ubicaciones el punto de interés más cercano</string>
+
+    <!-- Map fragment -->
+    <string name="map_ubication">Mi ubicación</string>
+
+
 </resources>

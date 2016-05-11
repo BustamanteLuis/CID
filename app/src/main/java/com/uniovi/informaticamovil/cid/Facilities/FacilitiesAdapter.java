@@ -30,12 +30,6 @@ import java.util.ArrayList;
 public class FacilitiesAdapter extends RecyclerView.Adapter<FacilitiesAdapter.FacilitieViewHolder> implements Filterable{
     ArrayList<Facilitie> mFacilities;
     ArrayList<Facilitie> Original;
-    static byte[] mBImage;
-    static String mName;
-    static String mDirection;
-    static String mHorario;
-    static String mDescription;
-
 
     public FacilitiesAdapter(ArrayList<Facilitie> facilities) {
         mFacilities = facilities;
@@ -45,6 +39,7 @@ public class FacilitiesAdapter extends RecyclerView.Adapter<FacilitiesAdapter.Fa
         TextView facilitieName;
         ImageView facilitieView;
         View mItemView;
+        Facilitie currentFacilitie;
 
         FacilitieViewHolder(final View itemView) {
             super(itemView);
@@ -56,11 +51,11 @@ public class FacilitiesAdapter extends RecyclerView.Adapter<FacilitiesAdapter.Fa
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     Intent intent = new Intent(mItemView.getContext(), FacilitieActivity.class);
-                    intent.putExtra("image", mBImage);
-                    intent.putExtra("name", mName);
-                    intent.putExtra("direccion", mDirection);
-                    intent.putExtra("horario", mHorario);
-                    intent.putExtra("descripcion", mDescription);
+                    intent.putExtra("image", currentFacilitie.getBImage());
+                    intent.putExtra("name", currentFacilitie.getName());
+                    intent.putExtra("direccion", currentFacilitie.getDirection());
+                    intent.putExtra("horario", currentFacilitie.getHorario());
+                    intent.putExtra("descripcion", currentFacilitie.getDescription());
                     mItemView.getContext().startActivity(intent);
                 }
             });
@@ -84,68 +79,21 @@ public class FacilitiesAdapter extends RecyclerView.Adapter<FacilitiesAdapter.Fa
     @Override
     public void onBindViewHolder(FacilitieViewHolder facilitieViewHolder, int i) {
         facilitieViewHolder.facilitieName.setText(mFacilities.get(i).getName());
-        mName = mFacilities.get(i).getName();
-        mDirection = mFacilities.get(i).getDirection();
-        mHorario = mFacilities.get(i).getHorario();
-        mDescription = mFacilities.get(i).getDescription();
+        facilitieViewHolder.currentFacilitie = mFacilities.get(i);
 
         // Get width of screen at runtime
         int screenWidth = DeviceDimensionsHelper.getDisplayWidth(facilitieViewHolder.mItemView.getContext());
-        mBImage = mFacilities.get(i).getBImage();
         // [] byte to Bitmap
-        Bitmap imagen = DeviceDimensionsHelper.getImage(mBImage);
+        Bitmap imagen = DeviceDimensionsHelper.getImage(mFacilities.get(i).getBImage());
         // Sets the image
         facilitieViewHolder.facilitieView.setImageBitmap(
                 Bitmap.createScaledBitmap(imagen, screenWidth, 350, true));
-            /*
-            Bitmap image = getBitmapFromURL(mFacilities.get(i).getImage(), facilitieViewHolder.mItemView);
-            facilitieViewHolder.facilitieView.setImageBitmap(image);
-            image.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            mBImage = stream.toByteArray();
-            */
     }
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
-
-    /*
-    public Bitmap getBitmapFromURL(String myUrl, View itemView) throws IOException {
-        InputStream is = null;
-        // Evita que android bloquee las url de las imagenes
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-        try {
-            URL url = new URL(myUrl);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
-            conn.connect();
-            conn.getResponseCode();
-
-            is = conn.getInputStream();
-
-            // Get width of screen at runtime
-            int screenWidth = DeviceDimensionsHelper.getDisplayWidth(itemView.getContext());
-
-            Bitmap imagen = BitmapFactory.decodeStream(is);
-
-            // float factor = screenWidth / (float) imagen.getWidth();
-
-            imagen = Bitmap.createScaledBitmap(imagen, screenWidth, 350, true);
-
-            return imagen;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            if(is!= null) {
-                is.close();
-            }
-        }
-    }
-    */
 
     @Override
     public Filter getFilter() {

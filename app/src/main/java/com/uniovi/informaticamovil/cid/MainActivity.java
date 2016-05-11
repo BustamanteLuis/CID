@@ -3,6 +3,8 @@ package com.uniovi.informaticamovil.cid;
 import android.annotation.TargetApi;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,6 +25,9 @@ import com.uniovi.informaticamovil.cid.Facilities.FacilitieFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
+    private static final String LAST_FRAGMENT = "last_fragment";
+    private static final String PREFERENCES = "SettingsMain";
+
     private CharSequence mTitle;
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
@@ -30,6 +35,7 @@ public class MainActivity extends AppCompatActivity
     private CircuitFragment mCf;
     private FacilitieFragment mFf;
     private Fragment fragment;
+    private SharedPreferences mSettings;
 
 
     @Override
@@ -51,7 +57,19 @@ public class MainActivity extends AppCompatActivity
 
         if (savedInstanceState == null)
             updateContentFragment();
+        else{
+            mSettings = getSharedPreferences(PREFERENCES, 0);
+            mCurrentIndex = mSettings.getInt(LAST_FRAGMENT, 0);
+            updateContentFragment();
+        }
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        // Guarda las preferencias
+        mSettings = getSharedPreferences(PREFERENCES, 0);
+        mSettings.edit().putInt(LAST_FRAGMENT, mCurrentIndex).commit();
     }
 
 
@@ -111,6 +129,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent i = new Intent(this, MyPreferencesActivity.class);
+            startActivity(i);
             return true;
         }
 
