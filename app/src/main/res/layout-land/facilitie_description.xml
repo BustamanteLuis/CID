@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="100dp"
+    android:paddingRight="100dp">
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_vertical_margin">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/space_between_content">
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="150dp"
+                android:id="@+id/descriptionView"
+                android:layout_gravity="top"
+                android:scaleType="fitXY"
+                android:layout_alignParentBottom="false" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="name"
+                android:id="@+id/descriptionName"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:layout_gravity="bottom"
+                android:background="#789f9f9f"
+                android:textColor="#ffffff"
+                android:textSize="14sp"
+                android:layout_alignParentBottom="false"
+                android:textStyle="bold|normal" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/facilitieDirection"
+            android:paddingTop="@dimen/space_between_content"
+            android:paddingBottom="@dimen/space_between_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView3"
+                android:text="@string/facilitie_direction" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/direction_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/facilitieSchedule"
+            android:paddingTop="@dimen/space_between_content"
+            android:paddingBottom="@dimen/space_between_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/facilitie_schedule"
+                android:id="@+id/textView4" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/schedule_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/facilitieDescription"
+            android:paddingTop="@dimen/space_between_content"
+            android:paddingBottom="@dimen/space_between_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/description_content" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>
