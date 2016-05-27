@@ -2,9 +2,6 @@ package com.uniovi.informaticamovil.cid.Facilities;
 
 import android.support.v4.util.Pair;
 
-/**
- * Created by Luis on 26/4/16.
- */
 public class Facilitie {
     private String mName;
     private String mDirection;
@@ -85,7 +82,9 @@ public class Facilitie {
         this.mBImage = mBImage;
     }
 
+    // Devuele una coordenada como un par
     public Pair<Double,Double> getParsedLocation(){
+        // Separa la latitud y longitud
         String[] aux = mLocation.split(" ");
 
         Pair<Double,Double> LatLong = new Pair<>(Double.parseDouble(aux[0]), Double.parseDouble(aux[1]));

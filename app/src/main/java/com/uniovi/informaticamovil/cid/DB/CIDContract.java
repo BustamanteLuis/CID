@@ -2,9 +2,7 @@ package com.uniovi.informaticamovil.cid.DB;
 
 import android.provider.BaseColumns;
 
-/**
- * Created by Luis on 19/4/16.
- */
+
 public final class CIDContract {
 
     public CIDContract(){}

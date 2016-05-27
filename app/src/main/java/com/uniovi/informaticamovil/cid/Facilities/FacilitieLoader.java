@@ -22,9 +22,6 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 
-/**
- * Created by Luis on 5/5/16.
- */
 public class FacilitieLoader extends AsyncTaskLoader<ArrayList<Facilitie>>{
     private static final String FACILITIES_TAG = "directorios";
     private static final String FACILITIE_TAG = "directorio";
@@ -99,6 +96,7 @@ public class FacilitieLoader extends AsyncTaskLoader<ArrayList<Facilitie>>{
         return baos.toString("UTF-8");
     }
 
+    // Parsea de manera adecuada el json descargado
     private ArrayList<Facilitie> parseJsonFacilitiesFile(String jsonFacilitiesInformation)
             throws JSONException {
         ArrayList<Facilitie> result = new ArrayList<Facilitie>();
@@ -165,6 +163,7 @@ public class FacilitieLoader extends AsyncTaskLoader<ArrayList<Facilitie>>{
         return facilitie;
     }
 
+    /* Descarga una imagen de una url */
     public Bitmap getBitmapFromURL(String URL) throws  IOException{
         InputStream is = null;
         // Evita que android bloquee las url de las imagenes

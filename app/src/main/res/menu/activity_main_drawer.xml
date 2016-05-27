@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_running"
-            android:title="@string/running_circuits" />
-        <item
-            android:id="@+id/nav_facilities"
-            android:title="@string/sport_facilities" />
-        <item
-            android:id="@+id/nav_locations"
-            android:title="@string/interest_location"/>
-    </group>
-
-    <item android:title="Communicate">
+    <item android:title="@string/points_of_interest">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_running"
+                android:icon="@drawable/ic_menu_point_of_interest"
+                android:title="@string/running_circuits" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_facilities"
+                android:icon="@drawable/ic_menu_point_of_interest"
+                android:title="@string/sport_facilities" />
+        </menu>
+    </item>
+
+    <item android:title="@string/map_category">
+        <menu>
+            <item
+                android:id="@+id/nav_locations"
+                android:icon="@drawable/ic_menu_map"
+                android:title="@string/interest_location" />
+        </menu>
+    </item>
+
+    <item android:title="@string/communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_suggestion"
+                android:icon="@drawable/ic_menu_sendmail"
+                android:title="@string/suggestion" />
         </menu>
     </item>
 

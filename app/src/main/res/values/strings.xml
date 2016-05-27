@@ -5,12 +5,15 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Ajuste</string>
 
     <!-- Drawer titles -->
+    <string name="points_of_interest">Puntos de interés</string>
     <string name="running_circuits">Circuitos de running</string>
     <string name="sport_facilities">Instalaciones deportivas</string>
     <string name="interest_location">Ubicaciones</string>
+    <string name="communicate">Comunícate</string>
+    <string name="suggestion">Sugerencias</string>
 
     <!-- Facilities description -->
     <string name="facilitie_direction">Dirección: </string>
@@ -24,9 +27,16 @@
     <string name="map_option">Ubicación más próxima</string>
     <string name="map_option_description">Si esta opción está seleccionada solo se mostrará
     en Ubicaciones el punto de interés más cercano</string>
+    <string name="user_category">Usuario</string>
+    <string name="user_option">Nombre</string>
+    <string name="email_option">Email</string>
 
     <!-- Map fragment -->
     <string name="map_ubication">Mi ubicación</string>
+
+    <!-- Suggestion fragment -->
+    <string name="send">Enviar</string>
+    <string name="suggestion_toast">Mensaje vacío</string>
 
 
 </resources>

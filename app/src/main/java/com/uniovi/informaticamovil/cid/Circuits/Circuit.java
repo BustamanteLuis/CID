@@ -1,11 +1,8 @@
 package com.uniovi.informaticamovil.cid.Circuits;
 
-import android.graphics.Bitmap;
 import android.support.v4.util.Pair;
 
-/**
- * Created by Luis on 14/4/16.
- */
+
 public class Circuit {
     private String mName;
     private String mDirection;
@@ -80,7 +77,9 @@ public class Circuit {
         this.mBImage = mBImage;
     }
 
+    // Devuele una coordenada como un par
     public Pair<Double,Double> getParsedLocation(){
+        // Separa la latitud y longitud
         String[] aux = mLocation.split(" ");
 
         Pair<Double,Double> LatLong = new Pair<>(Double.parseDouble(aux[0]), Double.parseDouble(aux[1]));

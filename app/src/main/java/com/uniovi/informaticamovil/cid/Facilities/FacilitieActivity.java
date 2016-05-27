@@ -11,9 +11,7 @@ import android.widget.TextView;
 
 import com.uniovi.informaticamovil.cid.R;
 
-/**
- * Created by Luis on 28/4/16.
- */
+/* Muestra el contenido de una instalacion en una actividad */
 public class FacilitieActivity extends AppCompatActivity {
 
     @Override
@@ -45,6 +43,6 @@ public class FacilitieActivity extends AppCompatActivity {
         String des = intent.getStringExtra("descripcion");
         descripcion.setText(Html.fromHtml(des));
 
-
     }
+
 }

@@ -2,10 +2,7 @@ package com.uniovi.informaticamovil.cid.Facilities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.StrictMode;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,16 +14,9 @@ import android.widget.TextView;
 import com.uniovi.informaticamovil.cid.DeviceDimensionsHelper;
 import com.uniovi.informaticamovil.cid.R;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 
-/**
- * Created by Luis on 26/4/16.
- */
+
 public class FacilitiesAdapter extends RecyclerView.Adapter<FacilitiesAdapter.FacilitieViewHolder> implements Filterable{
     ArrayList<Facilitie> mFacilities;
     ArrayList<Facilitie> Original;
@@ -95,6 +85,8 @@ public class FacilitiesAdapter extends RecyclerView.Adapter<FacilitiesAdapter.Fa
         super.onAttachedToRecyclerView(recyclerView);
     }
 
+    /* Retorna un filtro de instalaciones segun el criterio de búsqueda que el
+     * usuario halla introducido */
     @Override
     public Filter getFilter() {
         Filter filter = new Filter() {
@@ -103,7 +95,6 @@ public class FacilitiesAdapter extends RecyclerView.Adapter<FacilitiesAdapter.Fa
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 mFacilities=(ArrayList<Facilitie>)results.values;
                 notifyDataSetChanged();
-                Log.e("Filter", "publish");
             }
 
             @Override
@@ -129,7 +120,7 @@ public class FacilitiesAdapter extends RecyclerView.Adapter<FacilitiesAdapter.Fa
                     results.values = filteredList;
                     results.count = filteredList.size();
                 }
-                Log.e("Filter", "perform");
+
                 return results;
             }
         };

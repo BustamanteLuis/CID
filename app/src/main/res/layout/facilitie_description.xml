@@ -30,10 +30,9 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:layout_gravity="bottom"
-                android:background="#789f9f9f"
                 android:textColor="#ffffff"
-                android:textSize="14sp"
-                android:layout_alignParentBottom="false"
+                android:textSize="24sp"
+                android:layout_alignParentBottom="true"
                 android:textStyle="bold|normal" />
         </RelativeLayout>
 
@@ -49,13 +48,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView3"
-                android:text="@string/facilitie_direction" />
+                android:text="@string/facilitie_direction"
+                android:textStyle="bold"
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="New Text"
-                android:id="@+id/direction_content" />
+                android:id="@+id/direction_content"
+                android:fontFamily="Roboto Medium"
+                android:paddingStart="5dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -70,13 +73,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/facilitie_schedule"
-                android:id="@+id/textView4" />
+                android:id="@+id/textView4"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="New Text"
-                android:id="@+id/schedule_content" />
+                android:id="@+id/schedule_content"
+                android:paddingStart="5dp" />
         </LinearLayout>
 
         <LinearLayout

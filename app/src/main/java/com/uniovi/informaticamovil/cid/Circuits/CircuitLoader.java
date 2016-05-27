@@ -99,6 +99,7 @@ public class CircuitLoader extends AsyncTaskLoader<ArrayList<Circuit>> {
         return baos.toString("UTF-8");
     }
 
+    // Parsea de manera adecuada el json descargado
     private ArrayList<Circuit> parseJsonCircuitsFile(String jsonCircuitsInformation)
             throws JSONException {
         ArrayList<Circuit> result = new ArrayList<Circuit>();
@@ -150,6 +151,7 @@ public class CircuitLoader extends AsyncTaskLoader<ArrayList<Circuit>> {
         if(!image.isEmpty()) {
             byte[] bimage = null;
             try{
+                // Transforma la imagen a un array de bytes
                 bimage = DeviceDimensionsHelper.getBytes(getBitmapFromURL(image));
 
             }catch(IOException e){
@@ -164,9 +166,10 @@ public class CircuitLoader extends AsyncTaskLoader<ArrayList<Circuit>> {
         return circuit;
     }
 
+    /* Descarga una imagen de una url */
     public Bitmap getBitmapFromURL(String URL) throws  IOException{
         InputStream is = null;
-        // Evita que android bloquee las url de las imagenes
+        // Evita que android bloquee las url de las imagenes, es necesario
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 

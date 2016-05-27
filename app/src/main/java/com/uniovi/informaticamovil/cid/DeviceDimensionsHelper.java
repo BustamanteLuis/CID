@@ -9,9 +9,6 @@ import android.util.TypedValue;
 
 import java.io.ByteArrayOutputStream;
 
-/**
- * Created by Luis on 19/4/16.
- */
 
 /* Helps you to determinate the device height or width in order to resize the image accordingly */
 public class DeviceDimensionsHelper {

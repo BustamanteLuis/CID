@@ -7,10 +7,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,6 +19,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.uniovi.informaticamovil.cid.Circuits.CircuitFragment;
 import com.uniovi.informaticamovil.cid.Facilities.FacilitieFragment;
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        // Inicializa el drawer y toolbar
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
@@ -55,13 +59,21 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if (savedInstanceState == null)
-            updateContentFragment();
-        else{
-            mSettings = getSharedPreferences(PREFERENCES, 0);
-            mCurrentIndex = mSettings.getInt(LAST_FRAGMENT, 0);
-            updateContentFragment();
-        }
+        // Establecemos el nombre y el email del usuario en la cabecera del drawer
+        View header=navigationView.getHeaderView(0);
+
+        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+        TextView name = (TextView)header.findViewById(R.id.userName);
+        TextView email = (TextView)header.findViewById(R.id.userEmail);
+        name.setText(SP.getString("userName", ""));
+        email.setText(SP.getString("userEmail", ""));
+
+        mSettings = getSharedPreferences(PREFERENCES, 0);
+
+        mCurrentIndex = mSettings.getInt(LAST_FRAGMENT, 0);
+        updateContentFragment();
+
     }
 
     @Override
@@ -104,8 +116,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onQueryTextChange(String query) {
-        // Here is where we are going to implement our filter logic
-        Log.e("queryTextchange", "entra en on query");
+        // Implementa la lógica del filtro
         if(fragment instanceof CircuitFragment)
             mCf.updateContent(query);
         else if(fragment instanceof FacilitieFragment)
@@ -145,7 +156,9 @@ public class MainActivity extends AppCompatActivity
 
         if(mCurrentIndex != id) {
             mCurrentIndex = id;
+
             updateContentFragment();
+
             mTitle = item.getTitle().toString();
             mToolbar.setTitle(mTitle);
         }
@@ -155,7 +168,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void updateContentFragment(){
-
+        // Actualiza el contenido con el fragmento seleccionado
         if (mCurrentIndex == R.id.nav_running) {
             mCf = CircuitFragment.newInstance();
             fragment = mCf;
@@ -163,14 +176,22 @@ public class MainActivity extends AppCompatActivity
         } else if (mCurrentIndex == R.id.nav_facilities) {
             mFf = FacilitieFragment.newInstance();
             fragment = mFf;
+
         } else if(mCurrentIndex == R.id.nav_locations){
             fragment = MapFragment.newInstance();
+
+        } else if(mCurrentIndex == R.id.nav_suggestion){
+            fragment = SuggestionFragment.newInstance();
+
         }
         else{
             // Por defecto se carga el fragmento de los circuitos
             mCf = CircuitFragment.newInstance();
             fragment = mCf;
         }
+
+        // Almacena el ultimo fragmento accedido
+        mSettings.edit().putInt(LAST_FRAGMENT, mCurrentIndex).commit();
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager()
                 .beginTransaction();

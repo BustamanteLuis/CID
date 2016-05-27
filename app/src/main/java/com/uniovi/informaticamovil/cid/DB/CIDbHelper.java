@@ -11,9 +11,6 @@ import com.uniovi.informaticamovil.cid.Facilities.Facilitie;
 
 import java.util.ArrayList;
 
-/**
- * Created by Luis on 19/4/16.
- */
 public class CIDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "CID.db";
@@ -61,6 +58,7 @@ public class CIDbHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
+    /* Inserta una lista de circuitos en la BD */
     public void insertarCircuitos(ArrayList<Circuit> circuitList){
 
         SQLiteDatabase dbW = getWritableDatabase();
@@ -78,6 +76,7 @@ public class CIDbHelper extends SQLiteOpenHelper {
         }
     }
 
+    /* Inserta una lista de instalaciones en la BD */
     public void insertarFacilities(ArrayList<Facilitie> facilitieList){
 
         SQLiteDatabase dbW = getWritableDatabase();
@@ -96,6 +95,7 @@ public class CIDbHelper extends SQLiteOpenHelper {
         }
     }
 
+    // Lee todos los circuitos de la BD
     public ArrayList<Circuit> leerCircuitos(){
         SQLiteDatabase dbR = getReadableDatabase();
         ArrayList<Circuit> circuits = new ArrayList<Circuit>();
@@ -125,6 +125,7 @@ public class CIDbHelper extends SQLiteOpenHelper {
         return circuits;
     }
 
+    // Lee todos las instalaciones de la BD
     public ArrayList<Facilitie> leerFacilities(){
         SQLiteDatabase dbR = getReadableDatabase();
         ArrayList<Facilitie> facilities = new ArrayList<Facilitie>();
@@ -137,9 +138,6 @@ public class CIDbHelper extends SQLiteOpenHelper {
         Cursor c = dbR.query(CIDContract.Facilitie.TABLE_NAME, colums,
                 null, null, null, null, null, null);
 
-        /* Si el usuario pulsa en "Ubicaciones" antes que en "Insatalaciones deportivas"
-           la apliacion se detiene por que no se ha cargado la BD, este codigo permite
-           avisar que la BD esta vacía para mostrarlo al usuario */
         if(c.getCount() == 0)
             return null;
 

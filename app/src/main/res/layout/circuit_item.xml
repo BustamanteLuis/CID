@@ -36,7 +36,7 @@
                 android:layout_gravity="bottom"
                 android:background="#789f9f9f"
                 android:textColor="#ffffff"
-                android:textSize="14sp"
+                android:textSize="24sp"
                 android:layout_alignParentBottom="true"
                 android:textStyle="bold|normal" />
         </RelativeLayout>

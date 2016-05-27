@@ -1,11 +1,6 @@
 package com.uniovi.informaticamovil.cid.Circuits;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Bundle;
-import android.os.StrictMode;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
@@ -20,15 +15,9 @@ import android.widget.TextView;
 import com.uniovi.informaticamovil.cid.DeviceDimensionsHelper;
 import com.uniovi.informaticamovil.cid.R;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 
-/**
- * Created by Luis on 16/4/16.
- */
+
 public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.CircuitViewHolder> implements Filterable{
     ArrayList<Circuit> mCircuits;
     ArrayList<Circuit> Original;
@@ -88,7 +77,8 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.Circui
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-
+    /* Retorna un filtro de circuitos segun el criterio de búsqueda que el
+     * usuario halla introducido */
     @Override
     public Filter getFilter() {
         Filter filter = new Filter() {
@@ -97,7 +87,6 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.Circui
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 mCircuits=(ArrayList<Circuit>)results.values;
                 notifyDataSetChanged();
-                Log.e("Filter", "publish");
             }
 
             @Override
@@ -123,7 +112,7 @@ public class CircuitsAdapter extends RecyclerView.Adapter<CircuitsAdapter.Circui
                     results.values = filteredList;
                     results.count = filteredList.size();
                 }
-                Log.e("Filter", "perform");
+
                 return results;
             }
         };

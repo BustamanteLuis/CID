@@ -16,9 +16,7 @@ import com.uniovi.informaticamovil.cid.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by Luis on 13/4/16.
- */
+
 public class CircuitFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<Circuit>>{
     private static final String URL = "http://datos.gijon.es/doc/informacion/circuitos-footing.json";
     private static final String PREFERENCES = "SettingsCircuit";
@@ -57,7 +55,7 @@ public class CircuitFragment extends Fragment implements LoaderManager.LoaderCal
         if(mSettings.getBoolean("isInstalled", false) ) {
             populateList(mCIDb.leerCircuitos());
         }
-        // if not are download, make it
+        // if not are downloaded then download the data
         else {
             Bundle bundle = new Bundle();
             bundle.putString("URL", URL);
@@ -78,6 +76,7 @@ public class CircuitFragment extends Fragment implements LoaderManager.LoaderCal
     public void onLoadFinished(Loader<ArrayList<Circuit>> loader, ArrayList<Circuit> data) {
         mCIDb.insertarCircuitos(data);
         populateList(data);
+        // Señala que los datos han sido descargados
         mSettings.edit().putBoolean("isInstalled", true).commit();
     }
 
